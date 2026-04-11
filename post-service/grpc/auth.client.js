@@ -10,6 +10,6 @@ const authPackage = grpcObject.auth;
 
 export const authClient = new authPackage.AuthService(
   //  "user-service:50051", // Docker service name
-  "http://localhost:50051", // for local host development :: User Service
+  "localhost:50051", // for local host development :: User Service
   grpc.credentials.createInsecure(),
 );

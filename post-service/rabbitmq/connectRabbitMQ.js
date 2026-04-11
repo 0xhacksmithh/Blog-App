@@ -4,7 +4,7 @@ import { rabbitMq_url } from "../config/index.js";
 /// RabbitMQ connection
 export let channel, connection;
 
-export async function connectRabbitMQwithRetry(retries = 5, delay = 3000) {
+export async function connectRabbitMQwithRetry(retries = 2, delay = 3000) {
   while (retries) {
     try {
       connection = await amqp.connect(rabbitMq_url);

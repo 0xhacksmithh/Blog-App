@@ -7,7 +7,9 @@ async function sleep(ms) {
 async function connectRabbitMQ(retries = 10) {
   while (retries > 0) {
     try {
-      return await amqp.connect("amqp://rabbitmq:5672");
+      const res = await amqp.connect("amqp://localhost:5672");
+      console.log(`RabitMq Connected...`);
+      return res;
     } catch (err) {
       console.log("RabbitMQ not ready, retrying...");
       retries--;

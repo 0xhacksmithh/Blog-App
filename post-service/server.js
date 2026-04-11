@@ -11,7 +11,7 @@ import {
 import { connectDB } from "./database/db.js";
 import { port } from "./config/index.js";
 import { authenticate } from "./middleware/auth.middleware.js";
-import { commentRateLimiter } from "./middleware/rateLimit.middleware.js";
+// import { commentRateLimiter } from "./middleware/rateLimit.middleware.js";
 import { connectRabbitMQwithRetry } from "./rabbitmq/connectRabbitMQ.js";
 
 const app = express();
@@ -35,7 +35,7 @@ app.post("/posts/:postId/unlike", authenticate, unlikePost);
 app.post(
   "/posts/:postId/comment",
   authenticate,
-  commentRateLimiter,
+  //  commentRateLimiter,
   addComment,
 );
 app.get("/posts/:postId/comments", getComments);
