@@ -18,6 +18,15 @@ const app = express();
 
 app.use(express.json());
 
+// // Debug logger (see what service actually receives)
+// app.use((req, res, next) => {
+//   console.log("🎯 USER SERVICE RECEIVED");
+//   console.log("Method:", req.method);
+//   console.log("URL:", req.url);
+//   console.log("---------------------------");
+//   next();
+// });
+
 // Routes
 app.get("/posts", (req, res) => {
   res.json({ message: "Heloo from Post Microservice" });

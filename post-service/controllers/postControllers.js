@@ -48,8 +48,8 @@ export const updatePost = async (req, res) => {
   try {
     const { postId } = req.params;
     const { title, description, content } = req.body;
-
     const post = await BlogPost.findById(postId);
+
     if (!post) {
       return res.status(404).json({ message: "Post not found" });
     }
