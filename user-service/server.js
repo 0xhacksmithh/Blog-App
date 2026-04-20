@@ -33,12 +33,12 @@ app.get("/users/allReaders", authenticate, authorizeRoles("admin"), getReaders);
 app.get("/users/allAuthors", authenticate, getAuthors);
 
 // Subscribe
-app.post("/subscribe", authenticate, subscribe);
+app.post("/users/subscribe", authenticate, subscribe);
 
 // Server
 app.listen(port, () => {
   // Express Server
-  console.log(`Server is running on port :: 3000`);
+  console.log(`Server is running on port :: ${port}`);
 });
 
 connectDB(); // DB Connection

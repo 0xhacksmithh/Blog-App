@@ -45,9 +45,9 @@ app.use(
     changeOrigin: true,
 
     // ///////////////////////////////
-    // // 🔥 Log what is being forwarded
+    // //  Log what is being forwarded
     // onProxyReq: (proxyReq, req, res) => {
-    //   console.log("🚀 FORWARDED REQUEST");
+    //   console.log(" FORWARDED REQUEST");
     //   console.log("Method:", req.method);
     //   console.log("Forwarded Path:", proxyReq.path);
     //   console.log("Target URL:", SERVICES.USER + proxyReq.path);
@@ -56,14 +56,14 @@ app.use(
 
     // //  Log response from service
     // onProxyRes: (proxyRes, req, res) => {
-    //   console.log("✅ RESPONSE FROM USER SERVICE");
+    //   console.log(" RESPONSE FROM USER SERVICE");
     //   console.log("Status:", proxyRes.statusCode);
     //   console.log("---------------------------");
     // },
 
     // // Error handling
     // onError: (err, req, res) => {
-    //   console.error("❌ PROXY ERROR:", err.message);
+    //   console.error(" PROXY ERROR:", err.message);
     //   res.status(500).json({
     //     message: "Gateway Error",
     //     error: err.message,
