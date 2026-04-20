@@ -11,6 +11,8 @@ import {
 import { authenticate } from "./middleware/auth.middleware.js";
 import { authorizeRoles } from "./middleware/role.middleware.js";
 import { startGrpcServer } from "./grpc.js";
+import { initProducer } from "./kafka/producer.js";
+import { subscribe } from "./controllers/subscribeController.js";
 
 const app = express();
 
@@ -30,6 +32,9 @@ app.get("/users/allReaders", authenticate, authorizeRoles("admin"), getReaders);
 // Reader
 app.get("/users/allAuthors", authenticate, getAuthors);
 
+// Subscribe
+app.post("/subscribe", authenticate, subscribe);
+
 // Server
 app.listen(port, () => {
   // Express Server
@@ -39,3 +44,5 @@ app.listen(port, () => {
 connectDB(); // DB Connection
 
 startGrpcServer(); // gRPC Server
+
+initProducer(); // kafka Producer
