@@ -1,6 +1,7 @@
 import express from "express";
 import { connectDB } from "./model/db.js";
-import { startConsumer } from "./kafka/consumer.js";
+import { startSubConsumer } from "./kafka/subscription.consumer.js";
+import { startPostConsumer } from "./kafka/post.consumer.js";
 
 const app = express();
 
@@ -12,4 +13,5 @@ app.listen(3010, () => {
 
 connectDB();
 
-startConsumer();
+startSubConsumer();
+startPostConsumer();

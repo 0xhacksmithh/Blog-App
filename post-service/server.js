@@ -12,20 +12,12 @@ import { connectDB } from "./database/db.js";
 import { port } from "./config/index.js";
 import { authenticate } from "./middleware/auth.middleware.js";
 // import { commentRateLimiter } from "./middleware/rateLimit.middleware.js";
-import { connectRabbitMQwithRetry } from "./rabbitmq/connectRabbitMQ.js";
+// import { connectRabbitMQwithRetry } from "./rabbitmq/connectRabbitMQ.js";
+import { initProducer } from "./kafka/producer.js";
 
 const app = express();
 
 app.use(express.json());
-
-// // Debug logger (see what service actually receives)
-// app.use((req, res, next) => {
-//   console.log("🎯 USER SERVICE RECEIVED");
-//   console.log("Method:", req.method);
-//   console.log("URL:", req.url);
-//   console.log("---------------------------");
-//   next();
-// });
 
 // Routes
 app.get("/posts", (req, res) => {
@@ -56,4 +48,5 @@ app.listen(port, () => {
 });
 
 connectDB();
-connectRabbitMQwithRetry();
+// connectRabbitMQwithRetry();
+initProducer();

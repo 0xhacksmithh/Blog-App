@@ -11,6 +11,9 @@ export const authenticate = (req, res, next) => {
 
   try {
     const token = authHeader.split(" ")[1];
+    console.log(token);
+    console.log(jwt_secret);
+
     const payload = jwt.verify(token, jwt_secret);
     console.log(payload);
     // {
@@ -45,7 +48,7 @@ export const authenticate = (req, res, next) => {
         next();
       },
     );
-  } catch {
-    return res.status(401).json({ message: "Invalid Token" });
+  } catch (err) {
+    return res.status(401).json({ message: err });
   }
 };

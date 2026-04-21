@@ -1,4 +1,5 @@
 import { BlogPost } from "../database/blogPost.model.js";
+import { producer } from "../kafka/producer.js";
 
 export const createPost = async (req, res) => {
   try {
@@ -32,8 +33,31 @@ export const createPost = async (req, res) => {
       authorId: req.user.userId, // MongoDB ObjectId from User service
     });
 
+    ////////// Kafka Connection ///////////
+    //  Produce minimal event
+    const event = {
+      eventType: "POST_CREATED",
+      version: 1,
+      data: {
+        authorId: req.user.userId,
+        postId: post._id.toString(),
+      },
+      timestamp: new Date().toISOString(),
+    };
+
+    await producer.send({
+      topic: "post-created",
+      messages: [
+        {
+          key: req.user.userId.toString(), // partition by author
+          value: JSON.stringify(event),
+        },
+      ],
+    });
+
     return res.status(201).json({
       message: "Post created successfully",
+      message: "Post Notification queued in Kafka",
       post,
     });
   } catch (error) {

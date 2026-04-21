@@ -4,7 +4,7 @@ import { ProcessedEvent } from "../model/processedEvent.model.js";
 
 const consumer = kafka.consumer({ groupId: "notification-group" });
 
-export const startConsumer = async () => {
+export const startSubConsumer = async () => {
   await consumer.connect();
   await consumer.subscribe({ topic: "subscription-events" });
 
@@ -44,5 +44,5 @@ export const startConsumer = async () => {
     },
   });
 
-  console.log(" Kafka Consumer Running");
+  console.log(" Kafka Running Subscription-Consumer.....");
 };
