@@ -13,7 +13,8 @@ import { port } from "./config/index.js";
 import { authenticate } from "./middleware/auth.middleware.js";
 // import { commentRateLimiter } from "./middleware/rateLimit.middleware.js";
 // import { connectRabbitMQwithRetry } from "./rabbitmq/connectRabbitMQ.js";
-import { initProducer } from "./kafka/producer.js";
+import { startProducer } from "./kafka/producer.js";
+import { startConsumer } from "./kafka/likeDislikeCmt.consumer.js";
 
 const app = express();
 
@@ -49,4 +50,5 @@ app.listen(port, () => {
 
 connectDB();
 // connectRabbitMQwithRetry();
-initProducer();
+startProducer();
+startConsumer();

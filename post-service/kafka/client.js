@@ -1,6 +1,6 @@
 import { Kafka } from "kafkajs";
 
 export const kafka = new Kafka({
-  clientId: "notification-system",
+  clientId: "post-system",
   brokers: ["localhost:9092"], // change in prod
 });
