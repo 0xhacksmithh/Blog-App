@@ -1,35 +1,13 @@
-# HLD-1
+# HLD
 
-![This HLD Image.](./Architectural%20Diagrams/HLD.png)
+## Version 3
 
-# HLD-2
+![This HLD Image.](./Architectural%20Diagrams/HLD/v3.png)
 
-![This HLD Image.](./Architectural%20Diagrams/HLD-2.png)
+## Version 2
 
-## LLD
+![This HLD Image.](./Architectural%20Diagrams/HLD/v2.png)
 
-![alt text](./Architectural%20Diagrams/LLD-1.png)
+## Version 1
 
-![alt text](./Architectural%20Diagrams/LLD-2.png)
-
-## Time To Optimize POST Microservices
-
-### Before
-
-"/posts/:postId/like"
-"/posts/:postId/unlike" ---> MongoDB (direct write)
-"/posts/:postId/comment"
-
-### After
-
-"/posts/:postId/like"
-"/posts/:postId/unlike" ---> Kafka (event) → Consumer → MongoDB (write)
-"/posts/:postId/comment"
-
-### Futher Improvement
-
-"/posts/:postId/like"
-"/posts/:postId/unlike" ---> Kafka (event) → Consumer → Redis (durable buffer) → Worker → MongoDB (Batch write)
-"/posts/:postId/comment"
-
-`Initially planed to go with in-memory Buffer, but there is probability of data loss on crash`
+![This HLD Image.](./Architectural%20Diagrams/HLD/v1.png)
