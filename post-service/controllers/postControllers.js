@@ -130,6 +130,15 @@ export const likePost = async (req, res) => {
   const { postId } = req.params;
   const userId = req.user.userId;
 
+  await producer.send({
+    topic: "post-like",
+    messages: [
+      {
+        value: JSON.stringify({ postId, userId }),
+      },
+    ],
+  });
+  /*
   const post = await BlogPost.findOneAndUpdate(
     { _id: postId, likedBy: { $ne: userId } },
     {
@@ -144,12 +153,23 @@ export const likePost = async (req, res) => {
   }
 
   res.json({ message: "Post liked", likes: post.likes });
+  */
+  res.json({ message: "Like event queued" });
 };
 
 export const unlikePost = async (req, res) => {
   const { postId } = req.params;
   const userId = req.user.userId;
 
+  await producer.send({
+    topic: "post-unlike",
+    messages: [
+      {
+        value: JSON.stringify({ postId, userId }),
+      },
+    ],
+  });
+  /*
   const post = await BlogPost.findOneAndUpdate(
     { _id: postId, likedBy: userId },
     {
@@ -164,6 +184,8 @@ export const unlikePost = async (req, res) => {
   }
 
   res.json({ message: "Post unliked", likes: post.likes });
+  */
+  res.json({ message: "Like event queued" });
 };
 
 export const addComment = async (req, res) => {
@@ -174,6 +196,20 @@ export const addComment = async (req, res) => {
     return res.status(400).json({ message: "Comment text required" });
   }
 
+  await producer.send({
+    topic: "post-comment",
+    messages: [
+      {
+        value: JSON.stringify({
+          postId,
+          userId: req.user.userId,
+          userName: req.user.name,
+          text,
+        }),
+      },
+    ],
+  });
+  /*
   const post = await BlogPost.findByIdAndUpdate(
     postId,
     {
@@ -193,6 +229,8 @@ export const addComment = async (req, res) => {
   }
 
   res.status(201).json({ message: "Comment added" });
+  */
+  res.status(202).json({ message: "Comment queued" });
 };
 
 export const getComments = async (req, res) => {
